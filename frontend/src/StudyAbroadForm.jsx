@@ -10,7 +10,7 @@ const StudyAbroadForm = () => {
 
       {/* MOBILE VIEW CONTENT */}
       <div className="relative md:hidden w-full max-w-6xl mx-auto px-2 flex flex-col items-center justify-between space-y-6 z-10">
-        <div className="p-4 text-white max-w-md text-center border bg-black bg-opacity-80 rounded-xl">
+        <div className="p-4 text-white max-w-md text-start border bg-black bg-opacity-80 rounded-xl">
           <h1 className="text-2xl font-bold leading-snug">
             CINQ by Raghava <br />
             <span
@@ -32,7 +32,7 @@ const StudyAbroadForm = () => {
               "Estimated Completion : DEC 2028",
               
             ].map((item, index) => (
-              <li key={index} className="flex items-center justify-center">
+              <li key={index} className="flex items-start">
                 <span className="text-xl mr-2" style={{ color: '#ffffff' }}>✔</span>
                 {item}
               </li>
