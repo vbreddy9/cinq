@@ -30,15 +30,15 @@ app.get("/home", (req, res) => {
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "info@vr2tech.in",
-    pass: "lfuq qrtw uyyh imfd", // Replace with your actual Gmail app password
+    user: "admin@aurealconsulting.com",
+    pass: "ihdt hwnd ipyx iacl", // Replace with your actual Gmail app password
   },
 });
 
 // Send Auto-Reply Email to user
 const sendAutoReply = async (userEmail, userName) => {
   const mailOptions = {
-    from: `"CINQ by Raghava" <info@vr2tech.in>`,
+    from: `"CINQ by Raghava" <admin@aurealconsulting.com>`,
     to: userEmail,
     subject: "Thank You for Your Interest!",
     html: `
@@ -73,8 +73,8 @@ const sendAutoReply = async (userEmail, userName) => {
 // Notify Admin with Form Data
 const notifyAdmin = async (formData) => {
   const mailOptions = {
-    from: `"CINQ by Raghava" <info@vr2tech.in>`,
-    to: "vb.reddy20@gmail.com",
+    from: `"CINQ by Raghava" <admin@aurealconsulting.com>`,
+    to: "sainath@aurealconsulting.com",
     subject: "New Lead - CINQ by Raghava",
     html: `
       <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
