@@ -74,7 +74,7 @@ const sendAutoReply = async (userEmail, userName) => {
 const notifyAdmin = async (formData) => {
   const mailOptions = {
     from: `"CINQ by Raghava" <admin@aurealconsulting.com>`,
-    to: "sainath@aurealconsulting.com",
+    to: "ayesha@aurealconsulting.com",
     subject: "New Lead - CINQ by Raghava",
     html: `
       <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
