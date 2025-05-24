@@ -98,7 +98,7 @@ const StudyAbroadForm = () => {
           <div className="mt-4">
             <div className="text-green-800 px-4 py-2 inline-block font-semibold text-sm">
               <a
-              href="tel:+919515519536"
+              href="tel:+919392925831"
               className="blinking-button text-white px-8 py-3 rounded-full flex items-center gap-3 shadow-md transition-all duration-300"
               style={{
                 backgroundColor: '#cb8904'
