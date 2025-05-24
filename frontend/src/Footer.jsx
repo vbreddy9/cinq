@@ -23,22 +23,12 @@ const Footer = () => {
 
         {/* Footer Links */}
         <div className="mt-4 space-x-4">
-          <Link
-            to="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] text-white hover:underline"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            to="/terms-conditions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] text-white hover:underline"
-          >
-            Terms & Conditions
-          </Link>
+          <Link to="/privacy-policy" className="text-[10px] text-white hover:underline">
+          Privacy Policy
+           </Link>
+          <Link to="/terms-conditions" className="text-[10px] text-white hover:underline">
+          Terms & Conditions
+        </Link>
         </div>
       </div>
     </footer>
