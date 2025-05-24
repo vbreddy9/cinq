@@ -108,7 +108,7 @@ const Banner = () => {
       <div className="relative w-full max-w-6xl flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-6">
         <div className="p-4 md:p-6 lg:p-8 text-white max-w-md md:w-1/2 z-10 text-center md:text-left">
           <h1 className="text-2xl md:text-4xl font-bold leading-snug mb-4">
-            Discover Urban Living at Its Finest
+            Discover CINQ Living at Its Finest
           </h1>
           <p className="text-lg md:text-xl text-gray-100 mb-4">
             Schedule your{" "}
@@ -172,7 +172,7 @@ const Banner = () => {
                 required
               />
               <span>
-                I authorize Urbanrise Projects and its representatives to Call, SMS, Email or WhatsApp me. I also accept{" "}
+                I authorize Raghava Projects and its representatives to Call, SMS, Email or WhatsApp me. I also accept{" "}
                 <a href="/terms-conditions" className="text-blue-500 underline">
                   T&C
                 </a>{" "}
