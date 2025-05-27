@@ -1,5 +1,5 @@
 import React from "react";
-import logo1 from "./assets/cinq_raghava.webp";
+import logo1 from "./assets/raghava-cinq.png";
 import { MapPin } from "lucide-react";
 
 const StudyAbroadForm = () => {
