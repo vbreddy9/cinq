@@ -3,14 +3,15 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const requestIp = require("request-ip");
+const axios = require("axios");
 
 const app = express();
 const PORT = 5000;
 
-// CORS config - Allow all origins for now (adjust origin as needed)
+// CORS config
 app.use(
   cors({
-    origin: "*", // For dev, allow all origins; in production, specify exact URL(s)
+    origin: "*", // adjust for production
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -26,12 +27,12 @@ app.get("/home", (req, res) => {
   res.status(200).json("Backend working");
 });
 
-// Nodemailer transporter - use your real Gmail credentials/app password
+// Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "admin@aurealconsulting.com",
-    pass: "ihdt hwnd ipyx iacl", // Replace with your actual Gmail app password
+    pass: "ihdt hwnd ipyx iacl", // Replace with your Gmail app password
   },
 });
 
@@ -119,24 +120,65 @@ const notifyAdmin = async (formData) => {
   return transporter.sendMail(mailOptions);
 };
 
-// POST route to receive form data and send emails
+// Push lead to TeleCRM
+const pushToTeleCRM = async (lead) => {
+  const telecrmUrl =
+    "https://api.telecrm.in/enterprise/669f8deb9c0669c069b90fc3/autoupdatelead";
+  const telecrmAuth =
+    "Bearer dfc2d8a1-cca4-4226-b121-ebe4b22f6b071721799771196:b0f4940e-3a88-4941-9f34-5485c382e5d7";
+
+  const payload = {
+    fields: {
+      name: lead.name,
+      phone: lead.mobile,
+      email: lead.email,
+      ip_address: lead.ip,
+    },
+    actions: [
+      {
+        type: "SYSTEM_NOTE",
+        text: "Lead Source: CINQ by Raghava Website",
+      },
+    ],
+  };
+
+  try {
+    const response = await axios.post(telecrmUrl, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: telecrmAuth,
+      },
+    });
+    console.log("✅ TeleCRM Response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ TeleCRM Error:", error.response?.data || error.message);
+    throw new Error("Failed to push lead to TeleCRM");
+  }
+};
+
+// POST route to receive form data and send emails + push to CRM
 app.post("/home/send-email", async (req, res) => {
   const { name, email, mobile } = req.body;
   const ip = req.clientIp || "Unknown";
 
-  // Basic validation
   if (!name || !email || !mobile) {
     return res.status(400).json({ error: "Name, email, and mobile are required." });
   }
 
   try {
-    // Send emails in parallel
-    await Promise.all([sendAutoReply(email, name), notifyAdmin({ name, email, mobile, ip })]);
-    console.log("Emails sent successfully");
-    res.status(200).json({ message: "Emails sent successfully" });
+    // Send emails and push to CRM
+    await Promise.all([
+      sendAutoReply(email, name),
+      notifyAdmin({ name, email, mobile, ip }),
+      pushToTeleCRM({ name, email, mobile, ip }),
+    ]);
+
+    console.log("✅ Emails sent and lead pushed to CRM successfully");
+    res.status(200).json({ message: "Emails sent and lead added to TeleCRM successfully" });
   } catch (error) {
-    console.error("Email sending error:", error);
-    res.status(500).json({ error: "Failed to send emails", details: error.message });
+    console.error("❌ Error:", error);
+    res.status(500).json({ error: "Something went wrong", details: error.message });
   }
 });
 
